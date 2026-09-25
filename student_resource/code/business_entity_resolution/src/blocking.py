@@ -191,12 +191,6 @@ def _merge(found: dict[CandidateKey, set[str]], new: dict[CandidateKey, set[str]
         found[candidate].update(methods)
 
 
-def _rank_candidates(found: Mapping[CandidateKey, set[str]], limit: int) -> list[tuple[CandidateKey, set[str]]]:
-    """Keep the best-supported candidates before deterministic ID tie-breaking."""
-    ranked = sorted(found.items(), key=lambda item: (-len(item[1]), item[0]))
-    return ranked[:limit]
-
-
 def deduplicate_candidates(pairs: pd.DataFrame) -> pd.DataFrame:
     """Union duplicate candidate pairs and sort deterministically."""
     if pairs.empty:
@@ -236,7 +230,7 @@ def generate_candidates(
         for method in methods:
             if method in settings.enabled_methods or method in {"name_prefix", "locality_token", "postal_token"}:
                 _merge(found, _block(row, indexes, schema, settings, method))
-        selected = _rank_candidates(found, settings.max_candidates_per_source1)
+        selected = sorted(found.items())[: settings.max_candidates_per_source1]
         for (candidate_source, candidate_id), method_names in selected:
             rows.append({"reference_source": str(reference_source), "reference_entity_id": ref_id, "candidate_source": candidate_source, "candidate_entity_id": candidate_id, "blocking_methods": ",".join(sorted(method_names))})
     columns = ["reference_source", "reference_entity_id", "candidate_source", "candidate_entity_id", "blocking_methods"]
