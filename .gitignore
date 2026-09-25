@@ -1,0 +1,45 @@
+# =========================
+# LARGE CHALLENGE DATASET
+# =========================
+/dataset/
+
+# =========================
+# PYTHON CACHE / COMPILED
+# =========================
+__pycache__/
+**/__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# =========================
+# JUPYTER GENERATED FILES
+# =========================
+.ipynb_checkpoints/
+**/.ipynb_checkpoints/
+
+# =========================
+# LOG / TEMPORARY FILES
+# =========================
+*.log
+pipeline_run.log
+
+# =========================
+# macOS SYSTEM FILES
+# =========================
+.DS_Store
+__MACOSX/
+
+# =========================
+# VIRTUAL ENVIRONMENTS
+# =========================
+.venv/
+venv/
+env/
+
+# =========================
+# EDITOR / IDE FILES
+# =========================
+.vscode/
+.idea/
+/student_resource/dataset/
